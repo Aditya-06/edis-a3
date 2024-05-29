@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mobile-bff
+  namespace: bookstore-ns
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mobile-bff
+  template:
+    metadata:
+      labels:
+        app: mobile-bff
+    spec:
+      containers:
+        - name: edis-customers
+          image: adityaajmera/edis-mobile-bff
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DATABASE_NAME
+              value: edisa1
+            - name: DATABASE_USER
+              value: edisa1
+            - name: DATABASE_HOST
+              value: edis-a3-dbaurorab-0dnytaosemt1.cvgckaq8ewch.us-east-1.rds.amazonaws.com
+            - name: DATABASE_DRIVER
+              value: mysql
+            - name: DATABASE_PASSWORD
+              value: password
+            - name: PORT
+              value: '3000'
+            - name: BOOK_ALB_NAME
+              value: a1b355fe23e264d10937e4a168990fd4-1088432156.us-east-1.elb.amazonaws.com
+            - name: CUSTOMER_ALB_NAME
+              value: a8861557b92044810a61a27ad2a6b9ad-1306348729.us-east-1.elb.amazonaws.com

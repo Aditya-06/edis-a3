@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: book-ms
+  namespace: bookstore-ns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: book-ms
+  template:
+    metadata:
+      labels:
+        app: book-ms
+    spec:
+      containers:
+        - name: edis-books
+          image: adityaajmera/edis-books
+          ports:
+            - containerPort: 5000
+          env:
+            - name: DATABASE_NAME
+              value: edisa1
+            - name: DATABASE_USER
+              value: edisa1
+            - name: DATABASE_HOST
+              value: edis-a3-dbaurorab-0dnytaosemt1.cvgckaq8ewch.us-east-1.rds.amazonaws.com
+            - name: DATABASE_DRIVER
+              value: mysql
+            - name: DATABASE_PASSWORD
+              value: password
+            - name: PORT
+              value: '5000'

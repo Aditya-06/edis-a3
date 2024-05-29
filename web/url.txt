@@ -1,0 +1,20 @@
+http://alb-1351987821.us-east-1.elb.amazonaws.com:80
+
+  # ListenerRule that defines the routing condition for Web app clients.
+  MobileClientListenerRule:
+    Type: AWS::ElasticLoadBalancingV2::ListenerRule
+    Properties:
+      Actions:
+        - Type: forward
+          TargetGroupArn: !Ref MobileBFFTargetGroup
+      Conditions:
+        - Field: http-header
+          HttpHeaderConfig:
+            HttpHeaderName: X-Client-Type
+            Values:
+              - iOS app
+              - Android app
+      ListenerArn: !Ref HTTPListener
+      Priority: 2
+
+      Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzdGFybG9yZCIsImV4cCI6MTcxNDQ2NTAwOSwiaXNzIjoiY211LmVkdSJ9.fdBgMxIsM6cygbeoNxJZIBW-d2GwPo-eXvuCyQoh-W0

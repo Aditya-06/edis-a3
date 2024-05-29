@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crm-ms
+  namespace: bookstore-ns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: crm-ms
+  template:
+    metadata:
+      labels:
+        app: crm-ms
+    spec:
+      containers:
+        - name: edis-crm
+          image: adityaajmera/edis-crm
+          ports:
+            - containerPort: 3000

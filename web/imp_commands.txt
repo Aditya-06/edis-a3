@@ -1,0 +1,22 @@
+echo "DATABASE_NAME=edisa1
+DATABASE_USER=edisa1
+DATABASE_HOST=edis-a1-dbauroraa-nekwcgrudmdu.cvgckaq8ewch.us-east-1.rds.amazonaws.com
+DATABASE_DRIVER=mysql
+DATABASE_PASSWORD=password
+PORT=3000" >> .env
+
+docker run -it -d --name edis-a1 --env-file ./.env adityaajmera/edis-a1 sleep infinity
+
+mysql -h edis-a1-dbauroraa-nekwcgrudmdu.cvgckaq8ewch.us-east-1.rds.amazonaws.com -u edisa1 -p
+
+CREATE TABLE Books (
+  ISBN VARCHAR(255) PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  author VARCHAR(255) NOT NULL,
+  description TEXT NOT NULL,
+  genre VARCHAR(50) NOT NULL,
+  price DECIMAL(10, 2) NOT NULL,
+  quantity INTEGER NOT NULL
+);
+
+docker run -it -d -p 80:3000 --name edis-a1 --env-file ./.env adityaajmera/edis-a1 sleep infinity
